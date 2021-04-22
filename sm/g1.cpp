@@ -1,0 +1,204 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int t;
+    cin>>t;
+    for(int x=1;x<=t;x++)
+    {
+        int n,m;
+        cin>>n>>m;
+        int dp[n][m];
+        for(int i=0;i<n;i++)
+        {
+          for(int j=0;j<m;j++)
+          cin>>dp[i][j];
+        }
+        map<pair<int,int>,vector<int>> mp;
+        for(int i=0;i<m;i++)
+        {
+            int u=0;
+            for(int j=0;j<n;j++)
+            {
+                if(dp[j][i]==0)
+                {  u=0;
+                    continue;}
+                if(i>0&&dp[j][i-1]!=0&&u!=0)
+                { mp[{j,i}].push_back(u+1);
+                cout<<"j="<<j<<"i="<<i<<endl;}
+                else if(i<m-1&&dp[j][i+1]!=0&&u!=0)
+                 {mp[{j,i}].push_back(u+1);
+                 cout<<"j="<<j<<"i="<<i<<endl;}
+                 u++;
+            }
+        }
+        for(auto it=mp.begin();it!=mp.end();it++)
+        {
+            if(it->second.size()<2)
+            (it->second).push_back(0);
+
+        }
+        cout<<endl;
+        for(int i=0;i<m;i++)
+        {
+            int d=0;
+            for(int j=n-1;j>=0;j--)
+            {
+                if(dp[j][i]==0)
+               {d=0; continue;}
+                if(i>0&&dp[j][i-1]!=0&&d!=0)
+                 {mp[{j,i}].push_back(d+1);
+                 cout<<"j="<<j<<"i="<<i<<endl;}
+                else if(i<m-1&&dp[j][i+1]!=0&&d!=0)
+                { mp[{j,i}].push_back(d+1);
+                cout<<"j="<<j<<"i="<<i<<endl;}
+                d++;
+            }
+        }
+        for(auto it=mp.begin();it!=mp.end();it++)
+        {
+            if(it->second.size()<2)
+            (it->second).push_back(0);
+
+        }
+        cout<<endl;
+         for(int i=0;i<n;i++)
+        {
+            int l=0;
+            for(int j=0;j<m;j++)
+            {
+                if(dp[i][j]==0)
+               {l=0; continue;}
+                if(i>0&&dp[i-1][j]!=0&&l!=0)
+                 {mp[{i,j}].push_back(l+1);
+                 cout<<"j="<<j<<"i="<<i<<endl;}
+                else if(i<n-1&&dp[i+1][j]!=0)
+                { mp[{i,j}].push_back(l+1);
+                cout<<"j="<<j<<"i="<<i<<endl;}
+                l++;
+            }
+        }
+        for(auto it=mp.begin();it!=mp.end();it++)
+        {
+            if(it->second.size()<3)
+            (it->second).push_back(0);
+
+        }
+         cout<<endl;
+         for(int i=0;i<n;i++)
+        {
+            int r=0;
+            for(int j=m-1;j>=0;j--)
+            {
+                if(dp[i][j]==1)
+               {r=0; continue;}
+                if(i>0&&dp[i-1][j]!=0&&r!=0)
+                { mp[{i,j}].push_back(r+1);
+                cout<<"j="<<j<<"i="<<i<<endl;}
+                else if(i<n-1&&dp[i+1][j]!=0&&r!=0)
+                 {mp[{i,j}].push_back(r+1);
+                 cout<<"j="<<j<<"i="<<i<<endl;}
+                 r++;
+            }
+        }
+        for(auto it=mp.begin();it!=mp.end();it++)
+        {
+            if(it->second.size()<4)
+            (it->second).push_back(0);
+
+        }
+        cout<<endl;
+      int ans=0;
+      for(auto it=mp.begin();it!=mp.end();it++)
+      {  
+          vector<int> v=it->second;
+          cout<<(it->first).first<<" "<<(it->first).second<<" "<<v[0]<<" "<<v[1]<<" "<<v[2]<<" "<<v[3]<<endl;
+          if(v[0]>1)
+          {
+             int k=v[3];
+             k=k/2;
+             if(k>=2)
+             {  
+                 if(k<=v[0])
+                 ans+=v[0]-k+1;
+                 else
+                 ans+=v[0]-2+1;
+             }
+              k=v[2];
+             k=k/2;
+             if(k>=2)
+             {  
+                 if(k<=v[0])
+                 ans+=v[0]-k+1;
+                 else
+                 ans+=v[0]-2+1;
+             }
+          }
+           if(v[1]>1)
+          {
+             int k=v[3];
+             k=k/2;
+             if(k>=2)
+             {  
+                 if(k<=v[1])
+                 ans+=v[1]-k+1;
+                 else
+                 ans+=v[1]-2+1;
+             }
+              k=v[2];
+             k=k/2;
+             if(k>=2)
+             {  
+                 if(k<=v[1])
+                 ans+=v[1]-k+1;
+                 else
+                 ans+=v[1]-2+1;
+             }
+          }
+           if(v[2]>1)
+          {
+             int k=v[0];
+             k=k/2;
+             if(k>=2)
+             {  
+                 if(k<=v[2])
+                 ans+=v[2]-k+1;
+                 else
+                 ans+=v[2]-2+1;
+             }
+              k=v[1];
+             k=k/2;
+             if(k>=2)
+             {  
+                 if(k<=v[2])
+                 ans+=v[2]-k+1;
+                 else
+                 ans+=v[2]-2+1;
+             }
+          }
+           if(v[3]>1)
+          {
+             int k=v[0];
+             k=k/2;
+             if(k>=2)
+             {  
+                 if(k<=v[3])
+                 ans+=v[3]-k+1;
+                 else
+                 ans+=v[3]-2+1;
+             }
+              k=v[1];
+             k=k/2;
+             if(k>=2)
+             {  
+                 if(k<=v[3])
+                 ans+=v[3]-k+1;
+                 else
+                 ans+=v[3]-2+1;
+             }
+          }
+      }
+      cout<<ans<<endl;
+    }
+   return 0;
+}
